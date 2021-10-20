@@ -16,6 +16,8 @@ while cam.isOpened():
     for c in contours:
         if cv2.contourArea(c) < 5000:
             continue
+        x, y, w, h = cv2.boundingRect(c)
+        cv2.rectangle(frame1, (x, y), (x+w, y+h), (0, 255, 0), 2)
     # if the 'A' key is pressed wait 10 milliseconds then destroy window
     if cv2.waitKey(10) == ord('a'):
         break
