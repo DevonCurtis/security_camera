@@ -11,7 +11,11 @@ while cam.isOpened():
     _, thresh = cv2.threshold(blur, 20, 255, cv2.THRESH_BINARY)
     dilated = cv2.dilate(thresh, None, iterations=3)
     contours, _ = cv2.findContours(dilated, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    cv2.drawContours(frame1, contours, -1, (0, 255, 0), 2)
+    # cv2.drawContours(frame1, contours, -1, (0, 255, 0), 2)
+    # telling the program to focus on the bigger movements
+    for c in contours:
+        if cv2.contourArea(c) < 5000:
+            continue
     # if the 'A' key is pressed wait 10 milliseconds then destroy window
     if cv2.waitKey(10) == ord('a'):
         break
